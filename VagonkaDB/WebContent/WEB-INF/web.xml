@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+  <display-name>VAGONKA</display-name>
+  <filter>
+    <filter-name>CharsetFilter</filter-name>
+    <filter-class>net.vadique.khpi.vagonkadb.utils.CharsetFilter</filter-class>
+    <init-param>
+      <param-name>requestEncoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter>
+    <filter-name>ConnectionFilter</filter-name>
+    <filter-class>net.vadique.khpi.vagonkadb.utils.ConnectionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CharsetFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>ConnectionFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>  
+  <servlet>
+    <description></description>
+    <display-name>vagonka-smereka</display-name>
+    <servlet-name>vagonka-smereka</servlet-name>
+    <jsp-file>/WEB-INF/views/vagonka-smereka.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>vagonka-smereka</servlet-name>
+    <url-pattern>/vagonka-smereka</url-pattern>
+  </servlet-mapping>
+</web-app>
