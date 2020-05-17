@@ -3,9 +3,6 @@ package net.vadique.khpi.vagonkadb.utils;
 import java.sql.Connection;
 
 import javax.servlet.ServletRequest;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.vadique.khpi.vagonkadb.beans.UserAccount;

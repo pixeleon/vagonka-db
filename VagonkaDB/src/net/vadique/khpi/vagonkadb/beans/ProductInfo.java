@@ -1,10 +1,6 @@
 package net.vadique.khpi.vagonkadb.beans;
 
 import java.io.Serializable;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import javafx.fxml.Initializable;
 
 public class ProductInfo implements Serializable {
 
