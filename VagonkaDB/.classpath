@@ -16,10 +16,6 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.20.jar"/>
-	<classpathentry kind="lib" path="C:/Users/vadik/eclipse/jstl-1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/javax.servlet.jsp.jstl-1.2.4.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/javax.servlet.jsp.jstl-api-1.2.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
