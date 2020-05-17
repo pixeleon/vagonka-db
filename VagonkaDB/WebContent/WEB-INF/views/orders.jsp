@@ -39,7 +39,8 @@
              </td>
           </tr>
        </c:forEach>
-    </table>
+    </table><br>
+	<a href="report">Загрузить список заказов</a>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

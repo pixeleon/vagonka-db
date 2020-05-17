@@ -1,5 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset="
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,6 +15,7 @@
 	<table border="1" >
        <tr>
           <th>Код</th>
+          <th>Тип</th>
           <th>Дерево</th>
           <th>Сорт</th>
           <th>Длина от (м)</th>
@@ -22,10 +23,12 @@
           <th>Ширина (мм)</th>
           <th>Толщина (мм)</th>
           <th>Ед. изм.</th>
+          <th>Изменить</th>
        </tr>
        <c:forEach items="${productSizesList}" var="product" >
           <tr>
            	<td>${product.sizedProductId }</td>
+           	<td>${product.productTypeName }</td>
              <td>${product.woodTypeName }</td>
              <td>${product.woodKindName }</td>
              <td style="text-align:right">${product.lengthFrom }</td>
@@ -33,6 +36,9 @@
              <td style="text-align:right">${product.width }</td>
              <td style="text-align:right">${product.thickness }</td>
              <td>${product.muAbbrv }</td>
+             <td>
+                <a href="editSizedProduct?id=${product.sizedProductId}">Изменить</a>
+             </td>
           </tr>
        </c:forEach>
     </table>
