@@ -24,11 +24,12 @@ public class MySQLConnection {
 //				+ "localhost"
 //				+ "/vagonka"
 //				+ "?noAccessToProcedureBodies=true";
-		String connectionURL = "jdbc:postgresgl://"
+		Class.forName("org.postgresql.Driver");
+		String connectionURL = "jdbc:postgresql://"
 				+ "ec2-54-75-246-118.eu-west-1.compute.amazonaws.com:5432"
 				+ "/d62hs3sdk2ccl6"
-				+ "?noAccessToProcedureBodies=true"
-				+ "&sslmode=require";
+				+ "?&sslmode=require"
+				+ "&noAccessToProcedureBodies=true";
 		return DriverManager.getConnection(connectionURL, userName, password);
 	}
 	
