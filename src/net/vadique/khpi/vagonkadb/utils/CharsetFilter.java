@@ -22,6 +22,13 @@ public class CharsetFilter implements Filter {
 
 
 	@Override
+	public void destroy() {
+		Filter.super.destroy();
+	}
+
+
+
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain next)
 			throws IOException, ServletException {
 		if (null == request.getCharacterEncoding()) {
