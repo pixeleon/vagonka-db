@@ -4,8 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.util.List;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.poi.ss.usermodel.BuiltinFormats;
 import org.apache.poi.ss.usermodel.Cell;
@@ -15,6 +21,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import javafx.stage.FileChooser;
 import net.vadique.khpi.vagonkadb.beans.Order;
 
 public class ReportUtils {
@@ -44,14 +51,44 @@ public class ReportUtils {
 			cell.setCellStyle(style);
 			cell.setCellValue((Timestamp) o.getOrderDate());
 		}
-		try (FileOutputStream out = new FileOutputStream(new File("orders.xlsx"))) {
-			workbook.write(out);
-			workbook.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+//		FileChooser fileChooser = getFileChooser("Сохранить список заказов");
+//        File file;
+//        if ((file = fileChooser.showSaveDialog(null)) != null) {
+//            try {
+//            		FileOutputStream out = new FileOutputStream(file);
+//            		workbook.write(out);
+//            }
+//            catch (Exception e) {
+//            	e.printStackTrace();
+//            }
+//        }
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setDialogTitle("Сохранить список заказов");
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Microsoft Excel Documents", "xlsx"));
+		fileChooser.setAcceptAllFileFilterUsed(true);
+		
+		int userSelection = fileChooser.showSaveDialog(null);
+		 
+		if (userSelection == JFileChooser.APPROVE_OPTION) {
+		    File fileToSave = fileChooser.getSelectedFile();
+		    FileOutputStream out;
+			try {
+				out = new FileOutputStream(fileToSave);
+				workbook.write(out);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+//		try (FileOutputStream out = new FileOutputStream(new File("orders.xlsx"))) {
+//			workbook.write(out);
+//			workbook.close();
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 	}
 
@@ -85,4 +122,15 @@ public class ReportUtils {
 		cell.setCellStyle(cellStyle);
 		cell.setCellValue("Время заказа");
 	}
+	
+	public static FileChooser getFileChooser(String title) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("."));
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("XML-files (*.xml)", "*.xml"));
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("All files (*.*)", "*.*"));
+        fileChooser.setTitle(title);
+        return fileChooser;
+    }
 }
