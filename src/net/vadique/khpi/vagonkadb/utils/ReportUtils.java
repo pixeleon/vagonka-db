@@ -47,49 +47,31 @@ public class ReportUtils {
 			cell = row.createCell(4);
 			cell.setCellValue(o.getOrderInfo());
 			cell = row.createCell(5);
-			style.setDataFormat((short)BuiltinFormats.getBuiltinFormat("m/d/yy h:mm"));
+			style.setDataFormat((short) BuiltinFormats.getBuiltinFormat("m/d/yy h:mm"));
 			cell.setCellStyle(style);
 			cell.setCellValue((Timestamp) o.getOrderDate());
 		}
-//		FileChooser fileChooser = getFileChooser("Сохранить список заказов");
-//        File file;
-//        if ((file = fileChooser.showSaveDialog(null)) != null) {
-//            try {
-//            		FileOutputStream out = new FileOutputStream(file);
-//            		workbook.write(out);
-//            }
-//            catch (Exception e) {
-//            	e.printStackTrace();
-//            }
-//        }
+
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setDialogTitle("Сохранить список заказов");
 		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Microsoft Excel Documents", "xlsx"));
 		fileChooser.setAcceptAllFileFilterUsed(true);
-		
+
 		int userSelection = fileChooser.showSaveDialog(null);
-		 
+
 		if (userSelection == JFileChooser.APPROVE_OPTION) {
-		    File fileToSave = fileChooser.getSelectedFile();
-		    FileOutputStream out;
+			File fileToSave = fileChooser.getSelectedFile();
+			FileOutputStream out;
 			try {
 				out = new FileOutputStream(fileToSave);
 				workbook.write(out);
+				workbook.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-//		try (FileOutputStream out = new FileOutputStream(new File("orders.xlsx"))) {
-//			workbook.write(out);
-//			workbook.close();
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
 	}
 
 	public static void createHeaderRow(XSSFSheet sheet) {
@@ -122,15 +104,13 @@ public class ReportUtils {
 		cell.setCellStyle(cellStyle);
 		cell.setCellValue("Время заказа");
 	}
-	
+
 	public static FileChooser getFileChooser(String title) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File("."));
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("XML-files (*.xml)", "*.xml"));
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("All files (*.*)", "*.*"));
-        fileChooser.setTitle(title);
-        return fileChooser;
-    }
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setInitialDirectory(new File("."));
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML-files (*.xml)", "*.xml"));
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("All files (*.*)", "*.*"));
+		fileChooser.setTitle(title);
+		return fileChooser;
+	}
 }
