@@ -4,13 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.util.List;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.poi.ss.usermodel.BuiltinFormats;
@@ -21,7 +18,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import javafx.stage.FileChooser;
 import net.vadique.khpi.vagonkadb.beans.Order;
 
 public class ReportUtils {
@@ -105,12 +101,4 @@ public class ReportUtils {
 		cell.setCellValue("Время заказа");
 	}
 
-	public static FileChooser getFileChooser(String title) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setInitialDirectory(new File("."));
-		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML-files (*.xml)", "*.xml"));
-		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("All files (*.*)", "*.*"));
-		fileChooser.setTitle(title);
-		return fileChooser;
-	}
 }
