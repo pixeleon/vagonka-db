@@ -3,7 +3,7 @@
   <display-name>VAGONKA</display-name>
   <filter>
     <filter-name>CharsetFilter</filter-name>
-    <filter-class>net.vadique.khpi.vagonkadb.utils.CharsetFilter</filter-class>
+    <filter-class>net.pixeleon.khpi.vagonkadb.utils.CharsetFilter</filter-class>
     <init-param>
       <param-name>requestEncoding</param-name>
       <param-value>UTF-8</param-value>
@@ -11,7 +11,7 @@
   </filter>
   <filter>
     <filter-name>ConnectionFilter</filter-name>
-    <filter-class>net.vadique.khpi.vagonkadb.utils.ConnectionFilter</filter-class>
+    <filter-class>net.pixeleon.khpi.vagonkadb.utils.ConnectionFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>CharsetFilter</filter-name>
@@ -22,7 +22,7 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>  
   <servlet>
-    <description></description>
+    <description/>
     <display-name>vagonka-smereka</display-name>
     <servlet-name>vagonka-smereka</servlet-name>
     <jsp-file>/WEB-INF/views/vagonka-smereka.jsp</jsp-file>
