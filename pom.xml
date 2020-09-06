@@ -9,6 +9,7 @@
 	<name>VagonkaDB</name>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<defaultGoal>install</defaultGoal>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
