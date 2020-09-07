@@ -24,7 +24,7 @@ public class CustomerPricesServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<ProductPriceInfo> productPricesList = DBUtils.select(MyUtils.getStoredConnection(request));
+        List<ProductPriceInfo> productPricesList = DBUtils.selectSizedProductPrices(MyUtils.getStoredConnection(request));
         request.setAttribute("productPricesList", productPricesList);
         getServletContext().getRequestDispatcher("/WEB-INF/views/customerprices.jsp").forward(request, response);
     }

@@ -16,25 +16,25 @@
        <tr>
           <th>Продукция</th>
           <th>Дерево</th>
-          <th>Цена (грн.)</th>
           <th>Сорт</th>
           <th>Длина от (м)</th>
           <th>Длина до (м)</th>
           <th>Ширина (мм)</th>
           <th>Толщина (мм)</th>
           <th>Ед. изм.</th>
+           <th>Цена (грн.)</th>
        </tr>
        <c:forEach items="${productPricesList}" var="productprice" >
           <tr>
              <td>${productprice.productTypeName }</td>
              <td>${productprice.woodTypeName }</td>
-             <td style="text-align:right">${productprice.price}</td>
              <td>${productprice.woodKindName }</td>
              <td style="text-align:right">${productprice.lengthFrom }</td>
              <td style="text-align:right">${productprice.lengthTo }</td>
              <td style="text-align:right">${productprice.width }</td>
              <td style="text-align:right">${productprice.thickness }</td>
              <td>${productprice.muAbbrv }</td>
+              <td style="text-align:right">${productprice.price}</td>
           </tr>
        </c:forEach>
     </table>

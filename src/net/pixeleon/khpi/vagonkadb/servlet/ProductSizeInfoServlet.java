@@ -24,7 +24,7 @@ public class ProductSizeInfoServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<ProductSizeInfo> productSizesList = DBUtils.selectProductSizes(MyUtils.getStoredConnection(request));
+        List<ProductSizeInfo> productSizesList = DBUtils.selectSizedProducts(MyUtils.getStoredConnection(request));
         request.setAttribute("productSizesList", productSizesList);
         getServletContext().getRequestDispatcher("/WEB-INF/views/sizes.jsp").forward(request, response);
     }

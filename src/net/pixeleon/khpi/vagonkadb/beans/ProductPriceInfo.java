@@ -7,25 +7,25 @@ public class ProductPriceInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     String productTypeName;
     String woodTypeName;
-    double price;
     String woodKindName;
     double lengthFrom;
     double lengthTo;
     double width;
     double thickness;
     String muAbbrv;
+    double price;
 
-    public ProductPriceInfo(String productTypeName, String woodTypeName, double price, String woodKindName,
-                            double lengthFrom, double lengthTo, double width, double thickness, String muAbbrv) {
+    public ProductPriceInfo(String productTypeName, String woodTypeName, String woodKindName, double lengthFrom,
+                            double lengthTo, double width, double thickness, String muAbbrv, double price) {
         this.productTypeName = productTypeName;
         this.woodTypeName = woodTypeName;
-        this.price = price;
         this.woodKindName = woodKindName;
         this.lengthFrom = lengthFrom;
         this.lengthTo = lengthTo;
         this.width = width;
         this.thickness = thickness;
         this.muAbbrv = muAbbrv;
+        this.price = price;
     }
 
     public String getProductTypeName() {
