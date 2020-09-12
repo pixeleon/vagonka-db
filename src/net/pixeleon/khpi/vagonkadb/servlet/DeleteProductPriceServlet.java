@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * Servlet implementation class DeleteProductPriceServlet
@@ -28,11 +29,16 @@ public class DeleteProductPriceServlet extends HttpServlet {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
         String sizedProductId = request.getParameter("id");
-        DBUtils.deleteProductPrice(conn, sizedProductId);
-        getServletContext().getRequestDispatcher("/editprices").forward(request, response);
+        try {
+            DBUtils.deleteProductPrice(conn, sizedProductId);
+            getServletContext().getRequestDispatcher("/managerprices").forward(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

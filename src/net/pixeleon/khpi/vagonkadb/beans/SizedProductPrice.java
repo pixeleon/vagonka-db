@@ -8,7 +8,7 @@ public class SizedProductPrice implements Serializable {
     private static final long serialVersionUID = 1L;
 
     int sizedProductId;
-    Date priceDate;
+    Date updateDate;
     Double price;
     int amount;
 
@@ -18,9 +18,9 @@ public class SizedProductPrice implements Serializable {
         this.amount = amount;
     }
 
-    public SizedProductPrice(int sizedProductId, Date priceDate, double price, int amount) {
+    public SizedProductPrice(int sizedProductId, Date updateDate, double price, int amount) {
         this.sizedProductId = sizedProductId;
-        this.priceDate = priceDate;
+        this.updateDate = updateDate;
         this.price = price;
         this.amount = amount;
     }
@@ -42,12 +42,12 @@ public class SizedProductPrice implements Serializable {
         this.sizedProductId = sizedProductId;
     }
 
-    public Date getPriceDate() {
-        return priceDate;
+    public Date getUpdateDate() {
+        return updateDate;
     }
 
-    public void setPriceDate(Date priceDate) {
-        this.priceDate = priceDate;
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 
     public Double getPrice() {

@@ -109,69 +109,52 @@ public class DBUtils {
         return managerPricesList;
     }
 
-    public static List<SizedProductPrice> selectProductPrices(Connection conn) {
+    public static List<SizedProductPrice> selectProductPrices(Connection conn) throws SQLException {
         List<SizedProductPrice> productPricesList = new ArrayList<SizedProductPrice>();
-        Statement statement;
-        try {
-            statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM sized_product_price");
-            while (resultSet.next()) {
-                int sizedProductId = resultSet.getInt(1);
-                Date priceDate = resultSet.getDate(2);
-                double price = resultSet.getDouble(3);
-                int amount = resultSet.getInt(4);
-                SizedProductPrice productPrice = new SizedProductPrice(sizedProductId, priceDate, price, amount);
-                productPricesList.add(productPrice);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM sized_product_price");
+        while (resultSet.next()) {
+            int sizedProductId = resultSet.getInt(1);
+            Date priceDate = resultSet.getDate(2);
+            double price = resultSet.getDouble(3);
+            int amount = resultSet.getInt(4);
+            SizedProductPrice productPrice = new SizedProductPrice(sizedProductId, priceDate, price, amount);
+            productPricesList.add(productPrice);
         }
         return productPricesList;
     }
 
-    public static SizedProductPrice findProductPrice(Connection conn, int id) {
-        String sql = "Select * from sized_product_price where sized_product_id = ?";
-        try (PreparedStatement pstm = conn.prepareStatement(sql)) {
-            pstm.setInt(1, id);
-            ResultSet rs = pstm.executeQuery();
-            if (rs.next()) {
-                int sizedProductId = rs.getInt(1);
-                Date priceDate = rs.getDate(2);
-                double price = rs.getFloat(3);
-                int amount = rs.getInt(4);
-                return new SizedProductPrice(sizedProductId, priceDate, price, amount);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static void updateProductPrice(Connection conn, String sizedProductId, double price, int amount) {
-
-        String sql = "Update sized_product_price set price = ?, amount = ? where sized_product_id =? ";
-        PreparedStatement pstm;
-        try {
-            pstm = conn.prepareStatement(sql);
-            pstm.setDouble(1, price);
-            pstm.setInt(2, amount);
-            pstm.setString(3, sizedProductId);
-            pstm.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static SizedProductPrice findProductPrice(Connection conn, int id) throws SQLException {
+        String sql = "select * from sized_product_price where sized_product_id = ?";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setInt(1, id);
+        ResultSet rs = pstm.executeQuery();
+        if (rs.next()) {
+            int sizedProductId = rs.getInt(1);
+            Date priceDate = rs.getDate(2);
+            double price = rs.getFloat(3);
+            int amount = rs.getInt(4);
+            return new SizedProductPrice(sizedProductId, priceDate, price, amount);
+        } else {
+            return null;
         }
     }
 
-    public static void deleteProductPrice(Connection conn, String sizedProductId) {
+    public static void updateProductPrice(Connection conn, String sizedProductId, double price, int amount)
+            throws SQLException {
+        String sql = "update sized_product_price set price = ?, amount = ? where sized_product_id =? ";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setDouble(1, price);
+        pstm.setInt(2, amount);
+        pstm.setString(3, sizedProductId);
+        pstm.executeUpdate();
+    }
+
+    public static void deleteProductPrice(Connection conn, String sizedProductId) throws SQLException {
         String sql = "delete from sized_product_price where sized_product_id =?";
-        PreparedStatement pstm;
-        try {
-            pstm = conn.prepareStatement(sql);
-            pstm.setString(1, sizedProductId);
-            pstm.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, sizedProductId);
+        pstm.executeUpdate();
     }
 
     public static List<Order> selectOrders(Connection conn) throws SQLException {

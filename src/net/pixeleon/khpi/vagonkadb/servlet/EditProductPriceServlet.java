@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * Servlet implementation class EditProductPriceServlet
@@ -26,18 +27,28 @@ public class EditProductPriceServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
         int sizedProductId = Integer.parseInt(request.getParameter("id"));
-        SizedProductPrice productPrice = DBUtils.findProductPrice(conn, sizedProductId);
-        request.setAttribute("price", productPrice);
-        getServletContext().getRequestDispatcher("/WEB-INF/views/editproductprice.jsp").forward(request, response);
+        SizedProductPrice productPrice = null;
+        try {
+            productPrice = DBUtils.findProductPrice(conn, sizedProductId);
+            request.setAttribute("price", productPrice);
+            getServletContext().getRequestDispatcher("/WEB-INF/views/editproductprice.jsp").forward(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
         String sizedProductId = request.getParameter("id");
         double price = Double.parseDouble(request.getParameter("price"));
         int amount = Integer.parseInt(request.getParameter("amount"));
-        DBUtils.updateProductPrice(conn, sizedProductId, price, amount);
-        getServletContext().getRequestDispatcher("/managerprices").forward(request, response);
+        try {
+            DBUtils.updateProductPrice(conn, sizedProductId, price, amount);
+            getServletContext().getRequestDispatcher("/managerprices").forward(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
