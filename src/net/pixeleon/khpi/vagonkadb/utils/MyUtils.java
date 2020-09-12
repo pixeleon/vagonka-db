@@ -19,8 +19,7 @@ public class MyUtils {
 
     // Get the Connection object has been stored in attribute of the request.
     public static Connection getStoredConnection(ServletRequest request) {
-        Connection conn = (Connection) request.getAttribute(ATT_NAME_CONNECTION);
-        return conn;
+        return (Connection) request.getAttribute(ATT_NAME_CONNECTION);
     }
 
     // Store user info in Session.
@@ -30,36 +29,35 @@ public class MyUtils {
 
     // Get the user information stored in the session.
     public static UserAccount getLoginedUser(HttpSession session) {
-        UserAccount loginedUser = (UserAccount) session.getAttribute("loginedUser");
-        return loginedUser;
+        return (UserAccount) session.getAttribute("loginedUser");
     }
-// 
-//    // Store info in Cookie
-//    public static void storeUserCookie(HttpServletResponse response, UserAccount user) {
-//        System.out.println("Store user cookie");
-//        Cookie cookieUserName = new Cookie(ATT_NAME_USER_NAME, user.getUserName());
-//        // 1 day (Converted to seconds)
-//        cookieUserName.setMaxAge(24 * 60 * 60);
-//        response.addCookie(cookieUserName);
-//    }
-// 
-//    public static String getUserNameInCookie(HttpServletRequest request) {
-//        Cookie[] cookies = request.getCookies();
-//        if (cookies != null) {
-//            for (Cookie cookie : cookies) {
-//                if (ATT_NAME_USER_NAME.equals(cookie.getName())) {
-//                    return cookie.getValue();
-//                }
-//            }
-//        }
-//        return null;
-//    }
 
-//    // Delete cookie
-//    public static void deleteUserCookie(HttpServletResponse response) {
-//        Cookie cookieUserName = new Cookie(ATT_NAME_USER_NAME, null);
-//        // 0 seconds (This cookie will expire immediately)
-//        cookieUserName.setMaxAge(0);
-//        response.addCookie(cookieUserName);
-//    }
+   /* // Store info in Cookie
+    public static void storeUserCookie(HttpServletResponse response, UserAccount user) {
+        System.out.println("Store user cookie");
+        Cookie cookieUserName = new Cookie(ATT_NAME_USER_NAME, user.getUserName());
+        // 1 day (Converted to seconds)
+        cookieUserName.setMaxAge(24 * 60 * 60);
+        response.addCookie(cookieUserName);
+    }
+
+    public static String getUserNameInCookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (ATT_NAME_USER_NAME.equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
+    }
+
+    // Delete cookie
+    public static void deleteUserCookie(HttpServletResponse response) {
+        Cookie cookieUserName = new Cookie(ATT_NAME_USER_NAME, null);
+        // 0 seconds (This cookie will expire immediately)
+        cookieUserName.setMaxAge(0);
+        response.addCookie(cookieUserName);
+    }*/
 }
