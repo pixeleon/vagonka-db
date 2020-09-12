@@ -7,7 +7,9 @@ import java.sql.SQLException;
 public class MySQLConnection {
     private static final String USER_NAME = "zue12pxc9143ue33";
     private static final String PASSWORD = "e1zn6qn8z5zd612l";
-    private static final String CONNECTION_STRING = "mysql://zue12pxc9143ue33:e1zn6qn8z5zd612l@eporqep6b4b8ql12.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/l0ojmu0la4w8ro5b";
+    private static final String CONNECTION_STRING = "mysql://zue12pxc9143ue33:e1zn6qn8z5zd612l" +
+            "@eporqep6b4b8ql12.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306" +
+            "/l0ojmu0la4w8ro5b";
 
     public static Connection getMySQLConnection()
             throws ClassNotFoundException, SQLException {
@@ -16,9 +18,7 @@ public class MySQLConnection {
 //	     String dbName = "vagonka";
 //	     String userName = "vagonka_user";
 //	     String password = "";
-        String userName = USER_NAME;
-        String password = PASSWORD;
-        return getMySQLConnection(userName, password);
+        return getMySQLConnection(USER_NAME, PASSWORD);
     }
 
     public static Connection getMySQLConnection(String userName, String password)
