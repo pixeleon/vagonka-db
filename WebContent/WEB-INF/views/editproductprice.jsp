@@ -15,21 +15,25 @@
  
       <h2>Изменить цену</h2>
  
-      <c:if test="${not empty price}">
+      <c:if test="${not empty product}">
          <form method="POST" action="editProductPrice">
-            <input type="hidden" name="id" value="${price.sizedProductId}" />
+            <input type="hidden" name="id" value="${product.sizedProductId}" />
             <table border="0">
                <tr>
                   <td>Код размера продукции: </td>
-                  <td>${price.sizedProductId}</td>
+                  <td>${product.sizedProductId}</td>
                </tr>
                <tr>
                   <td>Дата цены: </td>
-                  <td>${price.priceDate}</td>
+                  <td>${product.priceDate}</td>
                </tr>
                <tr>
                   <td>Цена (грн.): </td>
-                  <td><input type="text" name="price" value="${price.price}" /></td>
+                  <td><input type="text" name="price" value="${product.price}" /></td>
+               </tr>
+               <tr>
+                  <td>Количество: </td>
+                  <td><input type="number" name="amount" value="${product.amount}"></td>
                </tr>
                <tr>
                   <td colspan = "2">

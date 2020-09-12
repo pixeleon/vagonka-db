@@ -12,7 +12,7 @@
 	<jsp:include page="/WEB-INF/views/userinfo.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/menu.jsp"></jsp:include>
 	<h2>Вагонка смерека</h2>
-	<a href="customerprices">90-151 грн</a>
+	<a href="customerprices">90-147 грн</a>
 	<article>
 	<p>
 	Жители украинского Прикарпатья до сих пор массово используют для внутренней и внешней отделки жилья уникальный природный материал под названием вагонка из смереки. 

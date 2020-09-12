@@ -3,30 +3,42 @@ package net.pixeleon.khpi.vagonkadb.beans;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ProductPrice implements Serializable {
+public class SizedProductPrice implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    String sizedProductId;
+    int sizedProductId;
     Date priceDate;
     Double price;
+    int amount;
 
-    public ProductPrice(String sizedProductId, Double price) {
+    public SizedProductPrice(int sizedProductId, Double price, int amount) {
         this.sizedProductId = sizedProductId;
         this.price = price;
+        this.amount = amount;
     }
 
-    public ProductPrice(String sizedProductId, Date priceDate, Double price) {
+    public SizedProductPrice(int sizedProductId, Date priceDate, double price, int amount) {
         this.sizedProductId = sizedProductId;
         this.priceDate = priceDate;
         this.price = price;
+        this.amount = amount;
     }
 
-    public String getSizedProductId() {
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public int getSizedProductId() {
         return sizedProductId;
     }
 
-    public void setSizedProductId(String sizedProductId) {
+    public void setSizedProductId(int sizedProductId) {
         this.sizedProductId = sizedProductId;
     }
 

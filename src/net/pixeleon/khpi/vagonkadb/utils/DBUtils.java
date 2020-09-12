@@ -8,13 +8,12 @@ import java.util.Date;
 import java.util.List;
 
 public class DBUtils {
-    public static List<ProductPriceInfo> selectSizedProductPrices(Connection conn) {
-        List<ProductPriceInfo> sizedProductPricesList = new ArrayList<ProductPriceInfo>();
+    public static List<CustomerPrice> selectCustomerPrices(Connection conn) {
+        List<CustomerPrice> customerPricesList = new ArrayList<CustomerPrice>();
         Statement statement;
         try {
             statement = conn.createStatement();
-
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM sized_product_price_info");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM customer_price_info");
             while (resultSet.next()) {
                 String productTypeName = resultSet.getString(1);
                 String woodTypeName = resultSet.getString(2);
@@ -25,15 +24,14 @@ public class DBUtils {
                 double thickness = resultSet.getDouble(7);
                 String muAbbrv = resultSet.getString(8);
                 double price = resultSet.getDouble(9);
-                ProductPriceInfo product = new ProductPriceInfo(productTypeName, woodTypeName, woodKindName,
+                CustomerPrice product = new CustomerPrice(productTypeName, woodTypeName, woodKindName,
                         lengthFrom, lengthTo, width, thickness, muAbbrv, price);
-                sizedProductPricesList.add(product);
+                customerPricesList.add(product);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return sizedProductPricesList;
+        return customerPricesList;
     }
 
     public static List<ProductInfo> selectProducts(Connection conn) {
@@ -82,17 +80,48 @@ public class DBUtils {
         return productSizesList;
     }
 
-    public static List<ProductPrice> selectProductPrices(Connection conn) {
-        List<ProductPrice> productPricesList = new ArrayList<ProductPrice>();
+    public static List<ManagerPrice> selectManagerPrices(Connection conn) {
+        List<ManagerPrice> managerPricesList = new ArrayList<ManagerPrice>();
+        Statement statement;
+        try {
+            statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM manager_price_info");
+            while (resultSet.next()) {
+                int sizedProductId = resultSet.getInt(1);
+                String productTypeName = resultSet.getString(2);
+                String woodTypeName = resultSet.getString(3);
+                String woodKindName = resultSet.getString(4);
+                double lengthFrom = resultSet.getDouble(5);
+                double lengthTo = resultSet.getDouble(6);
+                double width = resultSet.getDouble(7);
+                double thickness = resultSet.getDouble(8);
+                String muAbbrv = resultSet.getString(9);
+                double price = resultSet.getDouble(10);
+                Date priceDate = resultSet.getDate(11);
+                int amount = resultSet.getInt(12);
+                ManagerPrice product = new ManagerPrice(sizedProductId, productTypeName, woodTypeName, woodKindName,
+                        lengthFrom, lengthTo, width, thickness, muAbbrv, price, priceDate, amount);
+                managerPricesList.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return managerPricesList;
+    }
+
+    public static List<SizedProductPrice> selectProductPrices(Connection conn) {
+        List<SizedProductPrice> productPricesList = new ArrayList<SizedProductPrice>();
         Statement statement;
         try {
             statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM sized_product_price");
             while (resultSet.next()) {
-                String sizedProductId = resultSet.getString(1);
+                int sizedProductId = resultSet.getInt(1);
                 Date priceDate = resultSet.getDate(2);
                 double price = resultSet.getDouble(3);
-                ProductPrice productPrice = new ProductPrice(sizedProductId, priceDate, price);
+                int amount = resultSet.getInt(4);
+                SizedProductPrice productPrice = new SizedProductPrice(sizedProductId, priceDate, price, amount);
                 productPricesList.add(productPrice);
             }
         } catch (SQLException e) {
@@ -101,16 +130,17 @@ public class DBUtils {
         return productPricesList;
     }
 
-    public static ProductPrice findProductPrice(Connection conn, String id) {
+    public static SizedProductPrice findProductPrice(Connection conn, int id) {
         String sql = "Select * from sized_product_price where sized_product_id = ?";
         try (PreparedStatement pstm = conn.prepareStatement(sql)) {
-            pstm.setString(1, id);
+            pstm.setInt(1, id);
             ResultSet rs = pstm.executeQuery();
-            while (rs.next()) {
-                String sizedProductId = rs.getString(1);
+            if (rs.next()) {
+                int sizedProductId = rs.getInt(1);
                 Date priceDate = rs.getDate(2);
                 double price = rs.getFloat(3);
-                return new ProductPrice(sizedProductId, priceDate, price);
+                int amount = rs.getInt(4);
+                return new SizedProductPrice(sizedProductId, priceDate, price, amount);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -118,13 +148,15 @@ public class DBUtils {
         return null;
     }
 
-    public static void updateProductPrice(Connection conn, String sizedProductId, double price) {
-        String sql = "Update sized_product_price set price = ? where sized_product_id =? ";
+    public static void updateProductPrice(Connection conn, String sizedProductId, double price, int amount) {
+
+        String sql = "Update sized_product_price set price = ?, amount = ? where sized_product_id =? ";
         PreparedStatement pstm;
         try {
             pstm = conn.prepareStatement(sql);
             pstm.setDouble(1, price);
-            pstm.setString(2, sizedProductId);
+            pstm.setInt(2, amount);
+            pstm.setString(3, sizedProductId);
             pstm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

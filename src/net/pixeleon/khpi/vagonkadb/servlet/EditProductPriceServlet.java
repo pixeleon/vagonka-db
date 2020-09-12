@@ -1,6 +1,6 @@
 package net.pixeleon.khpi.vagonkadb.servlet;
 
-import net.pixeleon.khpi.vagonkadb.beans.ProductPrice;
+import net.pixeleon.khpi.vagonkadb.beans.SizedProductPrice;
 import net.pixeleon.khpi.vagonkadb.utils.DBUtils;
 import net.pixeleon.khpi.vagonkadb.utils.MyUtils;
 
@@ -25,19 +25,18 @@ public class EditProductPriceServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
-        String sizedProductId = request.getParameter("id");
-        ProductPrice productPrice = DBUtils.findProductPrice(conn, sizedProductId);
+        int sizedProductId = Integer.parseInt(request.getParameter("id"));
+        SizedProductPrice productPrice = DBUtils.findProductPrice(conn, sizedProductId);
         request.setAttribute("price", productPrice);
         getServletContext().getRequestDispatcher("/WEB-INF/views/editproductprice.jsp").forward(request, response);
-
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
-
         String sizedProductId = request.getParameter("id");
         double price = Double.parseDouble(request.getParameter("price"));
-        DBUtils.updateProductPrice(conn, sizedProductId, price);
+        int amount = Integer.parseInt(request.getParameter("amount"));
+        DBUtils.updateProductPrice(conn, sizedProductId, price, amount);
         getServletContext().getRequestDispatcher("/managerprices").forward(request, response);
     }
 

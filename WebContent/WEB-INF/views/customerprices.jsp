@@ -24,7 +24,8 @@
           <th>Ед. изм.</th>
            <th>Цена (грн.)</th>
        </tr>
-       <c:forEach items="${productPricesList}" var="productprice" >
+       <jsp:useBean id="customerPricesList" scope="request" type="java.util.List"/>
+       <c:forEach items="${customerPricesList}" var="productprice" >
           <tr>
              <td>${productprice.productTypeName }</td>
              <td>${productprice.woodTypeName }</td>

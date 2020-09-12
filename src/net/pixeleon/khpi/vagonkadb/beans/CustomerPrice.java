@@ -2,7 +2,7 @@ package net.pixeleon.khpi.vagonkadb.beans;
 
 import java.io.Serializable;
 
-public class ProductPriceInfo implements Serializable {
+public class CustomerPrice implements Serializable {
 
     private static final long serialVersionUID = 1L;
     String productTypeName;
@@ -15,8 +15,11 @@ public class ProductPriceInfo implements Serializable {
     String muAbbrv;
     double price;
 
-    public ProductPriceInfo(String productTypeName, String woodTypeName, String woodKindName, double lengthFrom,
-                            double lengthTo, double width, double thickness, String muAbbrv, double price) {
+    public CustomerPrice() {
+    }
+
+    public CustomerPrice(String productTypeName, String woodTypeName, String woodKindName, double lengthFrom,
+                         double lengthTo, double width, double thickness, String muAbbrv, double price) {
         this.productTypeName = productTypeName;
         this.woodTypeName = woodTypeName;
         this.woodKindName = woodKindName;

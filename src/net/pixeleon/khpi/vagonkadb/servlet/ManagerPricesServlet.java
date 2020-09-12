@@ -1,6 +1,6 @@
 package net.pixeleon.khpi.vagonkadb.servlet;
 
-import net.pixeleon.khpi.vagonkadb.beans.ProductPrice;
+import net.pixeleon.khpi.vagonkadb.beans.ManagerPrice;
 import net.pixeleon.khpi.vagonkadb.utils.DBUtils;
 import net.pixeleon.khpi.vagonkadb.utils.MyUtils;
 
@@ -24,8 +24,8 @@ public class ManagerPricesServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<ProductPrice> pricesList = DBUtils.selectProductPrices(MyUtils.getStoredConnection(request));
-        request.setAttribute("pricesList", pricesList);
+        List<ManagerPrice> managerPricesList = DBUtils.selectManagerPrices(MyUtils.getStoredConnection(request));
+        request.setAttribute("managerPricesList", managerPricesList);
         getServletContext().getRequestDispatcher("/WEB-INF/views/managerprices.jsp").forward(request, response);
     }
 

@@ -14,22 +14,40 @@
 	<h2>Цены на разные виды продукции</h2>
 	<table border="1" >
        <tr>
-          <th>Код размера продукта</th>
-          <th>Дата цены</th>
-          <th>Цена (грн.)</th>
-          <th>Изменить</th>
-          <th>Удалить</th>
+           <th>Код</th>
+           <th>Продукция</th>
+           <th>Дерево</th>
+           <th>Сорт</th>
+           <th>Длина от (м)</th>
+           <th>Длина до (м)</th>
+           <th>Ширина (мм)</th>
+           <th>Толщина (мм)</th>
+           <th>Ед. изм.</th>
+           <th>Цена (грн.)</th>
+           <th>Дата цены</th>
+           <th>Кол-во</th>
+           <th>Изменить</th>
+           <th>Удалить</th>
        </tr>
-       <c:forEach items="${pricesList}" var="price" >
+       <c:forEach items="${managerPricesList}" var="product">
           <tr>
-             <td>${price.sizedProductId }</td>
-             <td>${price.priceDate }</td>
-             <td style="text-align:right">${price.price }</td>
-             <td>
-                <a href="editProductPrice?id=${price.sizedProductId}">Изменить</a>
+             <td>${product.sizedProductId }</td>
+              <td>${product.productTypeName}</td>
+              <td>${product.woodTypeName}</td>
+              <td>${product.woodKindName}</td>
+              <td>${product.lengthFrom}</td>
+              <td>${product.lengthTo}</td>
+              <td>${product.width}</td>
+              <td>${product.thickness}</td>
+              <td>${product.muAbbrv}</td>
+             <td style="text-align:right">${product.price }</td>
+              <td>${product.priceDate}</td>
+              <td>${product.amount}</td>
+              <td>
+                <a href="editProductPrice?id=${product.sizedProductId}">Изменить</a>
              </td>
              <td>
-                <a href="deleteProductPrice?id=${price.sizedProductId}">Удалить</a>
+                <a href="deleteProductPrice?id=${product.sizedProductId}">Удалить</a>
              </td>
           </tr>
        </c:forEach>
