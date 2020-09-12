@@ -23,22 +23,20 @@ public class LoginServlet extends HttpServlet {
         super();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+Re    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        HttpSession session = request.getSession();
         RequestDispatcher dispatcher;
-        if (username.equals("vagonka_manager") || username.equals("vagonka_admin")) {
-            if (username.equals("vagonka_manager") && password.equals("barohka057")) {
+        if (username.equals("vagonka_manager")) {
+            if (password.equals("barohka057")) {
                 UserAccount user = new UserAccount(username, password);
-                MyUtils.storeLoginedUser(session, user);
-                dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/index.jsp");
-            } else if (username.equals("vagonka_admin") && password.equals("321nimda")) {
-                UserAccount user = new UserAccount(username, password);
+                HttpSession session = request.getSession();
                 MyUtils.storeLoginedUser(session, user);
                 dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/index.jsp");
             } else {
@@ -49,5 +47,4 @@ public class LoginServlet extends HttpServlet {
         }
         dispatcher.forward(request, response);
     }
-
 }
