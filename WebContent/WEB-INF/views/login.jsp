@@ -15,7 +15,7 @@
 		<label>Username:</label><br><br>
 		<input type="text" name="username" required /><br><br>
 		<label>Password:</label><br><br>
-		<input type="text" name="password" required /><br><br>
+		<input type="password" name="password" required /><br><br>
 		<input type="submit" value="Login" />
 	</form>
 	<jsp:include page="footer.jsp"></jsp:include>
