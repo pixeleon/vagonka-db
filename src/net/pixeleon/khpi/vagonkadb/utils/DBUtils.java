@@ -13,20 +13,24 @@ public class DBUtils {
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM customer_price_info");
         while (resultSet.next()) {
-            String productTypeName = resultSet.getString(1);
-            String woodTypeName = resultSet.getString(2);
-            String woodKindName = resultSet.getString(3);
-            double lengthFrom = resultSet.getDouble(4);
-            double lengthTo = resultSet.getDouble(5);
-            double width = resultSet.getDouble(6);
-            double thickness = resultSet.getDouble(7);
-            String muAbbrv = resultSet.getString(8);
-            double price = resultSet.getDouble(9);
-            CustomerPrice product = new CustomerPrice(productTypeName, woodTypeName, woodKindName,
-                    lengthFrom, lengthTo, width, thickness, muAbbrv, price);
+            CustomerPrice product = getCustomerPrice(resultSet);
             customerPricesList.add(product);
         }
         return customerPricesList;
+    }
+
+    static CustomerPrice getCustomerPrice(ResultSet resultSet) throws SQLException {
+        String productTypeName = resultSet.getString(1);
+        String woodTypeName = resultSet.getString(2);
+        String woodKindName = resultSet.getString(3);
+        double lengthFrom = resultSet.getDouble(4);
+        double lengthTo = resultSet.getDouble(5);
+        double width = resultSet.getDouble(6);
+        double thickness = resultSet.getDouble(7);
+        String muAbbrv = resultSet.getString(8);
+        double price = resultSet.getDouble(9);
+        return new CustomerPrice(productTypeName, woodTypeName, woodKindName,
+                lengthFrom, lengthTo, width, thickness, muAbbrv, price);
     }
 
     public static List<ProductInfo> selectProducts(Connection conn) {
@@ -175,7 +179,8 @@ public class DBUtils {
         try (Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM _order");
             while (resultSet.next()) {
-                ordersList.add(getOrder(resultSet));
+                Order order = getOrder(resultSet);
+                ordersList.add(order);
             }
         }
         return ordersList;
