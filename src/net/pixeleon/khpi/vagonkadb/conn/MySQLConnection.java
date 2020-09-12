@@ -5,11 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MySQLConnection {
-    private static final String userName = "zue12pxc9143ue33";
-    private static final String password = "e1zn6qn8z5zd612l";
-    private static final String hostName = "eporqep6b4b8ql12.chr7pe7iynqr.eu-west-1.rds.amazonaws.com";
-    private static final String port = "3306";
-    private static final String dbName = "l0ojmu0la4w8ro5b";
+    private static final String USER_NAME = "zue12pxc9143ue33";
+    private static final String PASSWORD = "e1zn6qn8z5zd612l";
+    private static final String CONNECTION_STRING = "mysql://zue12pxc9143ue33:e1zn6qn8z5zd612l@eporqep6b4b8ql12.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/l0ojmu0la4w8ro5b";
 
     public static Connection getMySQLConnection()
             throws ClassNotFoundException, SQLException {
@@ -18,8 +16,8 @@ public class MySQLConnection {
 //	     String dbName = "vagonka";
 //	     String userName = "vagonka_user";
 //	     String password = "";
-        String userName = MySQLConnection.userName;
-        String password = MySQLConnection.password;
+        String userName = USER_NAME;
+        String password = PASSWORD;
         return getMySQLConnection(userName, password);
     }
 
@@ -30,9 +28,7 @@ public class MySQLConnection {
 //				+ "localhost"
 //				+ "/vagonka"
 //				+ "?noAccessToProcedureBodies=true";
-        String connectionURL = "jdbc:mysql://"
-                + userName + ":" + password + "@" + hostName + ":" + port + "/" + dbName
-                + "?&sslmode=require&noAccessToProcedureBodies=true";
+        String connectionURL = "jdbc:" + CONNECTION_STRING;
         return DriverManager.getConnection(connectionURL, userName, password);
     }
 
