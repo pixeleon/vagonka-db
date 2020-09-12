@@ -5,26 +5,26 @@ import java.io.Serializable;
 public class ProductInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    int productId;
-    String productTypeName;
-    String woodTypeName;
-    String woodKindName;
-    String muAbbrv;
+    private int productId;
+    private String productTypeName;
+    private String woodTypeName;
+    private String woodKindName;
+    private String muAbbrv;
 
     public ProductInfo(String productTypeName, String woodTypeName, String woodKindName, String muAbbrv) {
-        this.productTypeName = productTypeName;
-        this.woodTypeName = woodTypeName;
-        this.woodKindName = woodKindName;
-        this.muAbbrv = muAbbrv;
+        this.setProductTypeName(productTypeName);
+        this.setWoodTypeName(woodTypeName);
+        this.setWoodKindName(woodKindName);
+        this.setMuAbbrv(muAbbrv);
     }
 
     public ProductInfo(int productId, String productTypeName, String woodTypeName, String woodKindName,
                        String muAbbrv) {
-        this.productId = productId;
-        this.productTypeName = productTypeName;
-        this.woodTypeName = woodTypeName;
-        this.woodKindName = woodKindName;
-        this.muAbbrv = muAbbrv;
+        this.setProductId(productId);
+        this.setProductTypeName(productTypeName);
+        this.setWoodTypeName(woodTypeName);
+        this.setWoodKindName(woodKindName);
+        this.setMuAbbrv(muAbbrv);
     }
 
     public int getProductId() {

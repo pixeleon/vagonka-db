@@ -7,12 +7,12 @@ public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    int orderId;
-    String customerName;
-    String customerPhone;
-    String customerEmail;
-    String orderInfo;
-    Date orderDate;
+    private int orderId;
+    private String customerName;
+    private String customerPhone;
+    private String customerEmail;
+    private String orderInfo;
+    private Date orderDate;
 
     public Order() {
     }
