@@ -175,14 +175,7 @@ public class DBUtils {
         try (Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM _order");
             while (resultSet.next()) {
-                int orderId = resultSet.getInt(1);
-                String customerName = resultSet.getString(2);
-                String customerPhone = resultSet.getString(3);
-                String customerEmail = resultSet.getString(4);
-                String orderInfo = resultSet.getString(5);
-                Timestamp orderDate = resultSet.getTimestamp(6);
-                Order order = new Order(orderId, customerName, customerPhone, customerEmail, orderInfo, orderDate);
-                ordersList.add(order);
+                ordersList.add(getOrder(resultSet));
             }
         }
         return ordersList;
@@ -224,17 +217,20 @@ public class DBUtils {
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
-
         if (resultSet.next()) {
-            int orderId = resultSet.getInt(1);
-            String customerName = resultSet.getString(2);
-            String customerPhone = resultSet.getString(3);
-            String customerEmail = resultSet.getString(4);
-            String orderInfo = resultSet.getString(5);
-            Timestamp orderDate = resultSet.getTimestamp(6);
-            return new Order(orderId, customerName, customerPhone, customerEmail, orderInfo, orderDate);
+            return getOrder(resultSet);
         }
         return null;
+    }
+
+    static Order getOrder(ResultSet resultSet) throws SQLException {
+        int orderId = resultSet.getInt(1);
+        String customerName = resultSet.getString(2);
+        String customerPhone = resultSet.getString(3);
+        String customerEmail = resultSet.getString(4);
+        String orderInfo = resultSet.getString(5);
+        Timestamp orderDate = resultSet.getTimestamp(6);
+        return new Order(orderId, customerName, customerPhone, customerEmail, orderInfo, orderDate);
     }
 
     public static ProductSizeInfo findSizedProduct(Connection conn, String id) {
