@@ -53,61 +53,23 @@ public class DBUtils {
         return productList;
     }
 
-    public static List<ProductSizeInfo> selectSizedProducts(Connection conn) {
-        List<ProductSizeInfo> productSizesList = new ArrayList<ProductSizeInfo>();
-        Statement statement;
-        try {
-            statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM sized_product_info");
-            while (resultSet.next()) {
-                String sizedProductId = resultSet.getString(1);
-                String productTypeName = resultSet.getString(2);
-                String woodTypeName = resultSet.getString(3);
-                String woodKindName = resultSet.getString(4);
-                double lengthFrom = resultSet.getDouble(5);
-                double lengthTo = resultSet.getDouble(6);
-                double width = resultSet.getDouble(7);
-                double thickness = resultSet.getDouble(8);
-                String muAbbrv = resultSet.getString(9);
-                ProductSizeInfo product = new ProductSizeInfo(sizedProductId, productTypeName, woodTypeName,
-                        woodKindName, lengthFrom, lengthTo, width, thickness, muAbbrv);
-                productSizesList.add(product);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static List<SizedProduct> selectSizedProducts(Connection conn) throws SQLException {
+        List<SizedProduct> productSizesList = new ArrayList<SizedProduct>();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM sized_product");
+        while (resultSet.next()) {
+            int sizedProductId = resultSet.getInt(1);
+            int productId = resultSet.getInt(2);
+            double lengthFrom = resultSet.getDouble(3);
+            double lengthTo = resultSet.getDouble(4);
+            double width = resultSet.getDouble(5);
+            double thickness = resultSet.getDouble(6);
+            SizedProduct product = new SizedProduct(sizedProductId, productId, lengthFrom, lengthTo, width, thickness);
+            productSizesList.add(product);
         }
         return productSizesList;
     }
 
-    public static List<ManagerPrice> selectManagerPrices(Connection conn) {
-        List<ManagerPrice> managerPricesList = new ArrayList<ManagerPrice>();
-        Statement statement;
-        try {
-            statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM manager_price_info");
-            while (resultSet.next()) {
-                int sizedProductId = resultSet.getInt(1);
-                String productTypeName = resultSet.getString(2);
-                String woodTypeName = resultSet.getString(3);
-                String woodKindName = resultSet.getString(4);
-                double lengthFrom = resultSet.getDouble(5);
-                double lengthTo = resultSet.getDouble(6);
-                double width = resultSet.getDouble(7);
-                double thickness = resultSet.getDouble(8);
-                String muAbbrv = resultSet.getString(9);
-                double price = resultSet.getDouble(10);
-                Date priceDate = resultSet.getDate(11);
-                int amount = resultSet.getInt(12);
-                ManagerPrice product = new ManagerPrice(sizedProductId, productTypeName, woodTypeName, woodKindName,
-                        lengthFrom, lengthTo, width, thickness, muAbbrv, price, priceDate, amount);
-                managerPricesList.add(product);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return managerPricesList;
-    }
 
     public static List<SizedProductPrice> selectProductPrices(Connection conn) throws SQLException {
         List<SizedProductPrice> productPricesList = new ArrayList<SizedProductPrice>();
@@ -246,7 +208,8 @@ public class DBUtils {
         return sizedProduct;
     }
 
-    public static void updateSizedProduct(Connection conn, String spId, double lengthFrom, double lengthTo, double width,
+    public static void updateSizedProduct(Connection conn, String spId, double lengthFrom, double lengthTo,
+                                          double width,
                                           double thickness) {
         String sql = "update sized_product set length_from = ?, length_to = ?, width = ?, thickness = ?"
                 + " where sized_product_id = ?";
