@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -31,9 +32,13 @@ public class ReportServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Order> ordersList = DBUtils.selectOrders(MyUtils.getStoredConnection(request));
-        ReportUtils.generateReport(ordersList);
-        getServletContext().getRequestDispatcher("/orders").forward(request, response);
+        try {
+            List<Order> ordersList = DBUtils.selectOrders(MyUtils.getStoredConnection(request));
+            ReportUtils.generateReport(ordersList);
+            getServletContext().getRequestDispatcher("/orders").forward(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

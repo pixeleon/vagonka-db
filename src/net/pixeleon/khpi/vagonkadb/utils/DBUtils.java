@@ -8,28 +8,23 @@ import java.util.Date;
 import java.util.List;
 
 public class DBUtils {
-    public static List<CustomerPrice> selectCustomerPrices(Connection conn) {
+    public static List<CustomerPrice> selectCustomerPrices(Connection conn) throws SQLException {
         List<CustomerPrice> customerPricesList = new ArrayList<CustomerPrice>();
-        Statement statement;
-        try {
-            statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM customer_price_info");
-            while (resultSet.next()) {
-                String productTypeName = resultSet.getString(1);
-                String woodTypeName = resultSet.getString(2);
-                String woodKindName = resultSet.getString(3);
-                double lengthFrom = resultSet.getDouble(4);
-                double lengthTo = resultSet.getDouble(5);
-                double width = resultSet.getDouble(6);
-                double thickness = resultSet.getDouble(7);
-                String muAbbrv = resultSet.getString(8);
-                double price = resultSet.getDouble(9);
-                CustomerPrice product = new CustomerPrice(productTypeName, woodTypeName, woodKindName,
-                        lengthFrom, lengthTo, width, thickness, muAbbrv, price);
-                customerPricesList.add(product);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM customer_price_info");
+        while (resultSet.next()) {
+            String productTypeName = resultSet.getString(1);
+            String woodTypeName = resultSet.getString(2);
+            String woodKindName = resultSet.getString(3);
+            double lengthFrom = resultSet.getDouble(4);
+            double lengthTo = resultSet.getDouble(5);
+            double width = resultSet.getDouble(6);
+            double thickness = resultSet.getDouble(7);
+            String muAbbrv = resultSet.getString(8);
+            double price = resultSet.getDouble(9);
+            CustomerPrice product = new CustomerPrice(productTypeName, woodTypeName, woodKindName,
+                    lengthFrom, lengthTo, width, thickness, muAbbrv, price);
+            customerPricesList.add(product);
         }
         return customerPricesList;
     }
@@ -175,7 +170,7 @@ public class DBUtils {
         }
     }
 
-    public static List<Order> selectOrders(Connection conn) {
+    public static List<Order> selectOrders(Connection conn) throws SQLException {
         List<Order> ordersList = new ArrayList<Order>();
         try (Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM _order");
@@ -189,13 +184,11 @@ public class DBUtils {
                 Order order = new Order(orderId, customerName, customerPhone, customerEmail, orderInfo, orderDate);
                 ordersList.add(order);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return ordersList;
     }
 
-    public static void insertOrder(Connection conn, Order order) {
+    public static void insertOrder(Connection conn, Order order) throws SQLException {
         String sql = "call sp_order_ops ('i',-1,?,?,?,?,null)";
         try (CallableStatement cstm = conn.prepareCall(sql)) {
             cstm.setString(1, order.getCustomerName());
@@ -203,12 +196,10 @@ public class DBUtils {
             cstm.setString(3, order.getCustomerEmail());
             cstm.setString(4, order.getOrderInfo());
             cstm.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
-    public static void updateOrder(Connection conn, Order order) {
+    public static void updateOrder(Connection conn, Order order) throws SQLException {
         String sql = "call sp_order_ops ('u',?,?,?,?,?,null)";
         try (CallableStatement cstm = conn.prepareCall(sql)) {
             cstm.setInt(1, order.getOrderId());
@@ -217,40 +208,33 @@ public class DBUtils {
             cstm.setString(4, order.getCustomerEmail());
             cstm.setString(5, order.getOrderInfo());
             cstm.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
-    public static void deleteOrder(Connection conn, int id) {
+    public static void deleteOrder(Connection conn, int id) throws SQLException {
         String sql = "call sp_order_ops ('d',?,'','','','',null)";
         try (CallableStatement cstm = conn.prepareCall(sql)) {
             cstm.setInt(1, id);
             cstm.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
-    public static Order findOrder(Connection conn, int id) {
+    public static Order findOrder(Connection conn, int id) throws SQLException {
         String sql = "select * from _order where order_id = ?";
-        Order order = null;
-        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                int orderId = resultSet.getInt(1);
-                String customerName = resultSet.getString(2);
-                String customerPhone = resultSet.getString(3);
-                String customerEmail = resultSet.getString(4);
-                String orderInfo = resultSet.getString(5);
-                Timestamp orderDate = resultSet.getTimestamp(6);
-                order = new Order(orderId, customerName, customerPhone, customerEmail, orderInfo, orderDate);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            int orderId = resultSet.getInt(1);
+            String customerName = resultSet.getString(2);
+            String customerPhone = resultSet.getString(3);
+            String customerEmail = resultSet.getString(4);
+            String orderInfo = resultSet.getString(5);
+            Timestamp orderDate = resultSet.getTimestamp(6);
+            return new Order(orderId, customerName, customerPhone, customerEmail, orderInfo, orderDate);
         }
-        return order;
+        return null;
     }
 
     public static ProductSizeInfo findSizedProduct(Connection conn, String id) {

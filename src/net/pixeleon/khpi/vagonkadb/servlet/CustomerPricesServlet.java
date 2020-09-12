@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -24,9 +25,13 @@ public class CustomerPricesServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<CustomerPrice> customerPricesList = DBUtils.selectCustomerPrices(MyUtils.getStoredConnection(request));
-        request.setAttribute("customerPricesList", customerPricesList);
-        getServletContext().getRequestDispatcher("/WEB-INF/views/customerprices.jsp").forward(request, response);
+        try {
+            List<CustomerPrice> customerPricesList = DBUtils.selectCustomerPrices(MyUtils.getStoredConnection(request));
+            request.setAttribute("customerPricesList", customerPricesList);
+            getServletContext().getRequestDispatcher("/WEB-INF/views/customerprices.jsp").forward(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

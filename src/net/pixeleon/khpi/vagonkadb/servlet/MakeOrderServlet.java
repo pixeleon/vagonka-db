@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Servlet implementation class MakeOrderServlet
@@ -32,8 +33,11 @@ public class MakeOrderServlet extends HttpServlet {
         String customerEmail = request.getParameter("email");
         String orderInfo = request.getParameter("info");
         Order order = new Order(customerName, customerPhone, customerEmail, orderInfo);
-        DBUtils.insertOrder(MyUtils.getStoredConnection(request), order);
-        getServletContext().getRequestDispatcher("/WEB-INF/views/ordersuccess.jsp").forward(request, response);
+        try {
+            DBUtils.insertOrder(MyUtils.getStoredConnection(request), order);
+            getServletContext().getRequestDispatcher("/WEB-INF/views/ordersuccess.jsp").forward(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * Servlet implementation class DeleteOrderServlet
@@ -31,8 +32,12 @@ public class DeleteOrderServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
         int orderId = Integer.parseInt(request.getParameter("id"));
-        DBUtils.deleteOrder(conn, orderId);
-        getServletContext().getRequestDispatcher("/orders").forward(request, response);
+        try {
+            DBUtils.deleteOrder(conn, orderId);
+            getServletContext().getRequestDispatcher("/orders").forward(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
