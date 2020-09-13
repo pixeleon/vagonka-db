@@ -8,9 +8,9 @@
     <title>Prices</title>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
-<jsp:include page="userinfo.jsp"></jsp:include>
-<jsp:include page="menu.jsp"></jsp:include>
+<jsp:include page="header.jsp"/>
+<jsp:include page="userinfo.jsp"/>
+<jsp:include page="menu.jsp"/>
 <h2>Цены на разные виды продукции</h2>
 <table border="1">
     <tr>
@@ -39,6 +39,6 @@
         </tr>
     </c:forEach>
 </table>
-<jsp:include page="footer.jsp"></jsp:include>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

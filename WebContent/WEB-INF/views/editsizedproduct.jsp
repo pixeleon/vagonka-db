@@ -18,7 +18,8 @@
 <jsp:useBean id="product" scope="request" type="net.pixeleon.khpi.vagonkadb.beans.SizedProduct"/>
 <c:if test="${not empty product}">
     <form method="post">
-        <label>Код размера: ${product.sizedProductId} <input value="${product.sizedProductId}" name="id" readonly/></label><br><br>
+        <label>Код размера: ${product.sizedProductId} <input value="${product.sizedProductId}" name="id"
+                                                             readonly/></label><br><br>
         <label>Код продукта: ${product.productId}</label><br><br>
         <label>Длина от (м):</label><br><br>
         <label>

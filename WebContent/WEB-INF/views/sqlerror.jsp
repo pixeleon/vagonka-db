@@ -10,7 +10,9 @@
 </head>
 <body>
 <h2>Exception occurred while accessing database</h2>
-<p>Type: <%= exception%></p>
-<p>Message: <%= message %></p>
+<p>Type: <%= exception%>
+</p>
+<p>Message: <%= message %>
+</p>
 </body>
 </html>
