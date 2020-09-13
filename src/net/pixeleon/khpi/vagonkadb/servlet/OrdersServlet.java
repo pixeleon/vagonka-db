@@ -30,7 +30,8 @@ public class OrdersServlet extends HttpServlet {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         try {
             List<Order> ordersList = DBUtils.selectOrders(MyUtils.getStoredConnection(request));
             request.setAttribute("ordersList", ordersList);

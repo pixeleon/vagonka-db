@@ -1,6 +1,5 @@
 package net.pixeleon.khpi.vagonkadb.servlet;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import net.pixeleon.khpi.vagonkadb.beans.Order;
 import net.pixeleon.khpi.vagonkadb.utils.DBUtils;
 import net.pixeleon.khpi.vagonkadb.utils.MyUtils;

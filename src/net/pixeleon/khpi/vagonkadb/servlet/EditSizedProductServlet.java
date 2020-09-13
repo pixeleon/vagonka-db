@@ -25,7 +25,6 @@ public class EditSizedProductServlet extends HttpServlet {
      */
     public EditSizedProductServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -34,9 +33,8 @@ public class EditSizedProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
         int spId = Integer.parseInt(request.getParameter("id"));
-        SizedProduct sizedProduct = null;
         try {
-            sizedProduct = DBUtils.findSizedProduct(conn, spId);
+            SizedProduct sizedProduct = DBUtils.findSizedProduct(conn, spId);
             request.setAttribute("product", sizedProduct);
             getServletContext().getRequestDispatcher("/WEB-INF/views/editsizedproduct.jsp").forward(request, response);
         } catch (SQLException e) {

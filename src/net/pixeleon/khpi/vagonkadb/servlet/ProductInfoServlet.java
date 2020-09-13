@@ -23,7 +23,6 @@ public class ProductInfoServlet extends HttpServlet {
         super();
     }
 
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<ProductInfo> productList = DBUtils.selectProducts(MyUtils.getStoredConnection(request));
         request.setAttribute("productList", productList);

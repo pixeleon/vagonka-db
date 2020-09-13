@@ -6,7 +6,6 @@ import net.pixeleon.khpi.vagonkadb.conn.MySQLConnection;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.sql.Connection;
 
 public class ConnectionFilter implements Filter {
@@ -45,7 +44,7 @@ public class ConnectionFilter implements Filter {
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
     }
 
 }
