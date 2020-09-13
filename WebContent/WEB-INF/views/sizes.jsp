@@ -20,8 +20,6 @@
           <th>Длина до (м)</th>
           <th>Ширина (мм)</th>
           <th>Толщина (мм)</th>
-          <th>Изменить</th>
-          <th>Удалить</th>
        </tr>
        <jsp:useBean id="productSizesList" scope="request" type="java.util.List"/>
        <c:forEach items="${productSizesList}" var="size">
@@ -32,12 +30,6 @@
              <td style="text-align:right">${size.lengthTo }</td>
              <td style="text-align:right">${size.width }</td>
              <td style="text-align:right">${size.thickness }</td>
-             <td>
-                <a href="editSizedProduct?id=${size.sizedProductId}">Изменить</a>
-             </td>
-              <td>
-                <a href="deleteSizedProduct?id=${size.sizedProductId}">Удалить</a>
-             </td>
           </tr>
        </c:forEach>
     </table>

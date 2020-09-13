@@ -19,7 +19,7 @@ public class DBUtils {
         return customerPricesList;
     }
 
-    static CustomerPrice getCustomerPrice(ResultSet resultSet) throws SQLException {
+    public static CustomerPrice getCustomerPrice(ResultSet resultSet) throws SQLException {
         String productTypeName = resultSet.getString(1);
         String woodTypeName = resultSet.getString(2);
         String woodKindName = resultSet.getString(3);
@@ -70,6 +70,36 @@ public class DBUtils {
         return productSizesList;
     }
 
+    public static SizedProduct findSizedProduct(Connection conn, int id) throws SQLException {
+        String sql = "select * from sized_product where sized_product_id = ?";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setInt(1, id);
+        ResultSet resultSet = pstm.executeQuery();
+        if (resultSet.next()) {
+            int sizedProductId = resultSet.getInt(1);
+            int productId = resultSet.getInt(2);
+            double lengthFrom = resultSet.getDouble(3);
+            double lengthTo = resultSet.getDouble(4);
+            double width = resultSet.getDouble(5);
+            double thickness = resultSet.getDouble(6);
+            return new SizedProduct(sizedProductId, productId, lengthFrom, lengthTo, width, thickness);
+        } else {
+            return null;
+        }
+    }
+
+    public static void updateSizedProduct(Connection conn, int spId, double lengthFrom, double lengthTo,
+                                          double width, double thickness) throws SQLException {
+        String sql = "update sized_product set length_from = ?, length_to = ?, width = ?, thickness = ?"
+                + " where sized_product_id = ?";
+        PreparedStatement prstm = conn.prepareStatement(sql);
+        prstm.setDouble(1, lengthFrom);
+        prstm.setDouble(2, lengthTo);
+        prstm.setDouble(3, width);
+        prstm.setDouble(4, thickness);
+        prstm.setInt(5, spId);
+        int r = prstm.executeUpdate();
+    }
 
     public static List<SizedProductPrice> selectProductPrices(Connection conn) throws SQLException {
         List<SizedProductPrice> productPricesList = new ArrayList<SizedProductPrice>();
@@ -173,7 +203,7 @@ public class DBUtils {
         return null;
     }
 
-    static Order getOrder(ResultSet resultSet) throws SQLException {
+    public static Order getOrder(ResultSet resultSet) throws SQLException {
         int orderId = resultSet.getInt(1);
         String customerName = resultSet.getString(2);
         String customerPhone = resultSet.getString(3);
@@ -183,46 +213,5 @@ public class DBUtils {
         return new Order(orderId, customerName, customerPhone, customerEmail, orderInfo, orderDate);
     }
 
-    public static ProductSizeInfo findSizedProduct(Connection conn, String id) {
-        String sql = "select * from product_size_info where sized_product_id = ?";
-        ProductSizeInfo sizedProduct = null;
-        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
-            preparedStatement.setString(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                String sizedProductId = resultSet.getString(1);
-                String productTypeName = resultSet.getString(2);
-                String woodTypeName = resultSet.getString(3);
-                String woodKindName = resultSet.getString(4);
-                double lengthFrom = resultSet.getDouble(5);
-                double lengthTo = resultSet.getDouble(6);
-                double width = resultSet.getDouble(7);
-                double thickness = resultSet.getDouble(8);
-                String muAbbrv = resultSet.getString(9);
-                sizedProduct = new ProductSizeInfo(sizedProductId, productTypeName, woodTypeName,
-                        woodKindName, lengthFrom, lengthTo, width, thickness, muAbbrv);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return sizedProduct;
-    }
-
-    public static void updateSizedProduct(Connection conn, String spId, double lengthFrom, double lengthTo,
-                                          double width,
-                                          double thickness) {
-        String sql = "update sized_product set length_from = ?, length_to = ?, width = ?, thickness = ?"
-                + " where sized_product_id = ?";
-        try (PreparedStatement prstm = conn.prepareStatement(sql)) {
-            prstm.setDouble(1, lengthFrom);
-            prstm.setDouble(2, lengthTo);
-            prstm.setDouble(3, width);
-            prstm.setDouble(4, thickness);
-            prstm.setString(5, spId);
-            int r = prstm.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
