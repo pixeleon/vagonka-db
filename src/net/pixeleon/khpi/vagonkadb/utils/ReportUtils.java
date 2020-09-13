@@ -8,15 +8,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.List;
 
 public class ReportUtils {
 
-    public static void generateReport(List<Order> orders) {
+    public static void generateReport(List<Order> orders) throws IOException {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("вагонка-заказы");
         CellStyle style = sheet.getWorkbook().createCellStyle();
@@ -52,15 +50,9 @@ public class ReportUtils {
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File fileToSave = fileChooser.getSelectedFile();
             FileOutputStream out;
-            try {
-                out = new FileOutputStream(fileToSave);
-                workbook.write(out);
-                workbook.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            out = new FileOutputStream(fileToSave);
+            workbook.write(out);
+            workbook.close();
         }
     }
 
