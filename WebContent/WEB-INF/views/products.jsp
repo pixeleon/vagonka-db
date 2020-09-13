@@ -20,7 +20,8 @@
           <th>Сорт</th>
           <th>Ед. изм.</th>
        </tr>
-       <c:forEach items="${productList}" var="product" >
+       <jsp:useBean id="productList" scope="request" type="java.util.List"/>
+       <c:forEach items="${productList}" var="product">
           <tr>
              <td>${product.productId }</td>
              <td>${product.productTypeName }</td>

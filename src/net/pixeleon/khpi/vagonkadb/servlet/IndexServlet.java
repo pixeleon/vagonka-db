@@ -19,7 +19,6 @@ public class IndexServlet extends HttpServlet {
         super();
     }
 
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
     }

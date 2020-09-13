@@ -32,10 +32,10 @@
              <td>${order.orderInfo}</td>
              <td>${order.orderDate}</td>
              <td>
-                <a href="editOrder?id=${order.orderId}">Изменить</a>
+                <a href="editorder?id=${order.orderId}">Изменить</a>
              </td>
              <td>
-                <a href="deleteOrder?id=${order.orderId}">Удалить</a>
+                <a href="deleteorder?id=${order.orderId}">Удалить</a>
              </td>
           </tr>
        </c:forEach>

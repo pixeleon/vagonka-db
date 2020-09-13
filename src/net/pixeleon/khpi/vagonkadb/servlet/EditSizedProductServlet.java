@@ -1,6 +1,6 @@
 package net.pixeleon.khpi.vagonkadb.servlet;
 
-import net.pixeleon.khpi.vagonkadb.beans.ProductSizeInfo;
+import net.pixeleon.khpi.vagonkadb.beans.SizedProduct;
 import net.pixeleon.khpi.vagonkadb.utils.DBUtils;
 import net.pixeleon.khpi.vagonkadb.utils.MyUtils;
 
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * Servlet implementation class EditSizedProductServlet
@@ -32,10 +33,15 @@ public class EditSizedProductServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
-        String spId = request.getParameter("id");
-        ProductSizeInfo sizedProduct = DBUtils.findSizedProduct(conn, spId);
-        request.setAttribute("product", sizedProduct);
-        getServletContext().getRequestDispatcher("/WEB-INF/views/editsizedproduct.jsp").forward(request, response);
+        int spId = Integer.parseInt(request.getParameter("id"));
+        SizedProduct sizedProduct = null;
+        try {
+            sizedProduct = DBUtils.findSizedProduct(conn, spId);
+            request.setAttribute("product", sizedProduct);
+            getServletContext().getRequestDispatcher("/WEB-INF/views/editsizedproduct.jsp").forward(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -44,13 +50,17 @@ public class EditSizedProductServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Connection conn = MyUtils.getStoredConnection(request);
-        String spId = request.getParameter("id");
+        int spId = Integer.parseInt(request.getParameter("id"));
         double lengthFrom = Double.parseDouble(request.getParameter("lfrom"));
         double lengthTo = Double.parseDouble(request.getParameter("lto"));
         double width = Double.parseDouble(request.getParameter("w"));
         double thickness = Double.parseDouble(request.getParameter("th"));
-        DBUtils.updateSizedProduct(conn, spId, lengthFrom, lengthTo, width, thickness);
-        response.sendRedirect(request.getContextPath() + "/sizes");
+        try {
+            DBUtils.updateSizedProduct(conn, spId, lengthFrom, lengthTo, width, thickness);
+            response.sendRedirect(request.getContextPath() + "/sizes");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

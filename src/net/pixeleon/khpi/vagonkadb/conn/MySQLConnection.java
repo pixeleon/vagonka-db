@@ -13,7 +13,6 @@ public class MySQLConnection {
 
     public static Connection getMySQLConnection()
             throws ClassNotFoundException, SQLException {
-
 //		 String hostName = "localhost";
 //	     String dbName = "vagonka";
 //	     String userName = "vagonka_user";
@@ -24,10 +23,7 @@ public class MySQLConnection {
     public static Connection getMySQLConnection(String userName, String password)
             throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-//		String connectionURL = "jdbc:mysql://"
-//				+ "localhost"
-//				+ "/vagonka"
-//				+ "?noAccessToProcedureBodies=true";
+//		String connectionURL = "jdbc:mysql://localhost/vagonka/?noAccessToProcedureBodies=true";
         String connectionURL = "jdbc:" + CONNECTION_STRING;
         return DriverManager.getConnection(connectionURL, userName, password);
     }

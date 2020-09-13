@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet {
         super();
     }
 
-Re    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
     }
