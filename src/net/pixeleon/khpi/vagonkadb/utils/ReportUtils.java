@@ -2,11 +2,13 @@ package net.pixeleon.khpi.vagonkadb.utils;
 
 import net.pixeleon.khpi.vagonkadb.beans.Order;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -45,7 +47,7 @@ public class ReportUtils {
         fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Microsoft Excel Documents", "xlsx"));
         fileChooser.setAcceptAllFileFilterUsed(true);
 
-        int userSelection = fileChooser.showSaveDialog(null);
+        int userSelection = fileChooser.showSaveDialog(new Frame());
 
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File fileToSave = fileChooser.getSelectedFile();
