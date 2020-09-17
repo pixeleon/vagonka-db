@@ -37,7 +37,7 @@ public class ReportServlet extends HttpServlet {
             List<Order> ordersList = DBUtils.selectOrders(MyUtils.getStoredConnection(request));
             ReportUtils.generateReport(ordersList);
             getServletContext().getRequestDispatcher("/orders").forward(request, response);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
