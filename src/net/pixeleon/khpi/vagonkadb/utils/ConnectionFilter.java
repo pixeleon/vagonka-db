@@ -33,7 +33,7 @@ public class ConnectionFilter implements Filter {
         } catch (Exception e) {
             e.printStackTrace();
             MySQLConnection.rollbackQuietly(conn);
-            throw new ServletException();
+            throw new ServletException(e.getMessage());
         } finally {
             MySQLConnection.closeQuietly(conn);
         }
